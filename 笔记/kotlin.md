@@ -151,4 +151,4 @@ var <propertyName>[: <PropertyType>] [= <property_initializer>]
 [<setter>]
 ```
 
-在使用这种全局变量时，对于变量的获取和设定，本质上都是通过getter和setter函数来完成的，只不过默认情况下不需要我们去编写
+在使用这种全局变量时，对于变量的获取和设定，本质上都是通过getter和setter函数来完成的，只不过默认情况下不需要我们去编写 
