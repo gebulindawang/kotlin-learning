@@ -129,3 +129,26 @@ fun test(a:Int = 6,b:Int = 10) = a + b
 kotlin内部也可以定义函数，函数内的函数作用域是受限的，我们只能在函数内部使用
 
 kotlin也支持重载
+
+#### 再谈变量
+
+我们可以将变量的作用域进行提升，将其直接变成一个顶级定义
+
+```kotlin
+var str : String = '123'
+fun main(){
+...
+}
+```
+
+此时这个变量可以被所有函数使用
+
+其实，声明一个变量的完整语法如下：
+
+```
+var <propertyName>[: <PropertyType>] [= <property_initializer>]
+[<getter>]
+[<setter>]
+```
+
+在使用这种全局变量时，对于变量的获取和设定，本质上都是通过getter和setter函数来完成的，只不过默认情况下不需要我们去编写
