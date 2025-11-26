@@ -152,3 +152,67 @@ var <propertyName>[: <PropertyType>] [= <property_initializer>]
 ```
 
 在使用这种全局变量时，对于变量的获取和设定，本质上都是通过getter和setter函数来完成的，只不过默认情况下不需要我们去编写 
+
+# 高级函数和lambda表达式
+
+kotlin中函数为一等公民，支持很多高级特性，甚至可以被存储在变量里面，可以作为参数传递给其他高阶函数并从中返回。
+
+```kotlin
+//表示一个String作为参数，返回值为int类型的函数
+val func :(String) ->Int = {1}
+```
+
+```kotlin
+fun test(func :(String) ->Int){}
+```
+
+#### Lambda表达式
+
+```kotlin
+fun main(){
+var func:(String) ->Int ={ //一个lambda表达式只需要直接在花括号中编写函数体即可
+println(it) //默认情况下，如果函数只有一个参数，我们可以用it代替传入的参数
+666//默认最后一行为返回值
+	}
+}
+```
+
+如果参数有多个，我们也可以这样写
+
+```kotlin
+fun main(){
+var func:(String,String) ->Int ={ a,b->
+println(a,b) //
+666//默认最后一行为返回值
+	}
+}
+```
+
+```kotlin
+fun main() {
+    test {
+        println(it);
+        123
+    }
+}
+fun test(func:(String) -> Int){
+    println(func("hello"))
+}
+```
+
+man函数调用test函数，lambda表达式作为函数参数传入test函数里面。而test函数里执行println 接受的func函数。func函数此时就是传入的lambda表达式，所以先打印传入的参数hello（it），然后最后打印返回值123
+
+lambda表达式本质上就是一个匿名函数，并且lambda表达式没有办法直接使用return语句返回结果，而是需要特殊标签
+
+```kotlin
+fun main() {
+    val func:(Int) -> String = test@{
+        if (it > 10){
+            return@test "我是提前返回值"
+        }
+        "我是默认返回值"
+    }
+    print(func(11))
+}
+```
+

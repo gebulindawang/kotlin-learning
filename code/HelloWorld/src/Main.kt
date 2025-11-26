@@ -1,14 +1,15 @@
 import javax.annotation.processing.Messager
 import javax.print.DocFlavor
 
-var a = 10
-    get() = field * 10
-    set(value){
-        println("我被赋值了")
-       
+fun main() {
+    val func:(Int) -> String = func@{
+        if (it > 10){
+            return@func "我是提前返回值"
+        }
+        "我是默认返回值"
     }
-//TIP 要<b>运行</b>代码，请按 <shortcut actionId="Run"/> 或
-// 点击装订区域中的 <icon src="AllIcons.Actions.Execute"/> 图标。
-fun main(){
-    a=10
+    print(func(11))
+}
+fun test(func:(String) -> Int){
+    println(func("hello"))
 }
