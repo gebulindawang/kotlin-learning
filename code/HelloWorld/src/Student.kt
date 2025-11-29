@@ -1,6 +1,14 @@
-data class Student constructor (var name: String,var age: Int){
-    infix fun test(name:String): String{
-        return "你好"
+import javax.naming.Name
+open class Student{
+    var name: String = "小明"
+    fun sayHello(){
+        println("hello, my name is $name")
     }
-
 }
+open class artStudent:Student(){
+     fun test(){
+        sayHello()
+     }
+}
+
+
