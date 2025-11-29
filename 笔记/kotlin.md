@@ -255,3 +255,95 @@ kotlin类的属性定义一般使用构造函数使用
 辅助（次要）构造函数：可以存在多个，并且可以使用自定义函数体，但是无法像主构造函数那样定义类属性，并且当类具有主构造函数时，所有次要构造函数必须直接或间接地调用主构造函数
 
 kotlin语言比较灵活，类中并不是一定需要主构造函数，全部写辅助构造函数也是可以的。但是再怎么都得有构造函数
+
+## 对象的初始化
+
+对象创建时，我们可能需要做一些初始化操作，我们就可以使用初始化代码块来完成，初始化代码块使用init关键字来完成。。加入我们希望对象在创建时，如果年龄不足18岁，那么就设定为18岁
+
+```kotlin
+class Student (var name : String ,var age : Int){
+	init{
+	printlt("我是初始化操作")
+	if(age<18)age = 18
+	println("初始化操作结束")
+	}
+}
+```
+
+
+
+## 运算符重载函数
+
+Kotlin支持位程序中已知运算符提供自定义实现，这些运算符具有固定的符号表示。如果实现运算符重载，请为相应类型的提供具有对应运算符指定名称的成员变量，而当前类对象，则直接作为运算符左边的操作数，如果是一元运算符则直接作为操作数参与运算
+
+比如，现在我们想要为我们自定义的类型支持加法运算
+
+```kotlin
+class Student constructor (var name: String,var age: Int){ 
+    operator fun plus(another: Student):Student{
+        return Student(this.name+another.name,this.age+another.age)
+    }
+}
+```
+
+```kotlin
+fun main() {
+    val student1 = Student("小明", 12)
+    val student2 = Student("小王", 16)
+    val student = student1 + student2
+    print(student.name)
+}
+```
+
+取反运算符重写
+
+```kotlin
+class Student constructor (var name: String,var age: Int){
+    operator fun not() = Student("我是取反后的名字",0)
+    override fun toString(): String = "我的名字是$name,我的年龄是$age"
+}
+```
+
+期中inc()和dec()函数比较特殊，它们必须返回一个值，该值将分配给使用++或--操作的变量，而不是直接执行操作对象，意思就是执行后应该得到一个新的对象，然后变量的值直接引用到这个新的对象  
+
+## 中缀函数
+
+实际上中缀函数在我们之前很多时候都有出现，比如位运算符
+
+```kotlin
+println(i shl 1)
+```
+
+这里的shl并不是一个运算符，而是一段自定义的英文单词
+
+这其实是中缀函数，用infix关键字标记的函数被称为中缀函数，在使用时，可以省略调用的点和括号进行调用，infix函数必须满足一下要求：
+
+1. 必须是成员函数
+
+2. 只能有一个参数
+3. 参数不能有默认值
+
+```
+ infix fun test(name:String): String{
+        return "你好"
+    }
+```
+
+```
+val student = Student("小王", 18)
+    println(student test "你好")
+```
+
+## 空值和空类型
+
+所有的变量除了引用一个具体的值歪，还有引种特殊的值null可以使用，也就是不引用任何对象
+
+在java中。某些情况下，引用类型的默认值就是null，这就经常会导致出现一只鞋空指针异常。在kotlin中，对空值的处理非常严格。正常情况下我们的变量是无法直接赋值为null的，否则会报错
+
+这是因为所有的类型默认都是非空类型，非空类型的变量是不允许被赋值为null的，这直接在编译阶段避免了其他语言中经常存在的空指针问题
+
+那么，如果我们希望某个变量在初始情况下使用null而不去引用任何一个对象
+
+
+
+ 
